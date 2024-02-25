@@ -16,4 +16,10 @@ def mark_task_completed(index: int, completed: bool) -> None:
 
 
 def get_all_tasks() -> List[Tuple[int, str, bool]]:
-    return [(i, task["title"], task["completed"]) for i, task in enumerate(_DB)]
+    res = []
+    for i, task in enumerate(_DB):
+        if task['completed']:
+            res.append(f"[V] {i} - {task['title'] }")
+        else:
+            res.append(f"[ ] {i} - {task['title'] }")
+    return res
