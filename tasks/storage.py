@@ -17,3 +17,8 @@ def mark_task_completed(index: int, completed: bool) -> None:
 
 def get_all_tasks() -> List[Tuple[int, str, bool]]:
     return [(i, task["title"], task["completed"]) for i, task in enumerate(_DB)]
+
+
+def check_if_task_in_DB(index: int) -> bool:
+    if index < len(_DB):
+        return True

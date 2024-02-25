@@ -1,5 +1,5 @@
 from .export import save_to_file
-from .storage import add_task, get_all_tasks, mark_task_completed, remove_task
+from .storage import add_task, get_all_tasks, mark_task_completed, remove_task, check_if_task_in_DB
 
 
 def handle_action():
@@ -18,10 +18,18 @@ def handle_action():
         case "2":
             print(get_all_tasks())
             index = int(input("Choose task index to remove: "))
+            while not check_if_task_in_DB(index):
+                print("You entered unexistent task index.")
+                print(get_all_tasks())
+                index = int(input("Choose task index to mark as done: "))
             remove_task(index)
         case "3":
             print(get_all_tasks())
             index = int(input("Choose task index to mark as done: "))
+            while not check_if_task_in_DB(index):
+                print("You entered unexistent task index.")
+                print(get_all_tasks())
+                index = int(input("Choose task index to mark as done: "))
             mark_task_completed(index, True)
         case "4":
             print(get_all_tasks())
