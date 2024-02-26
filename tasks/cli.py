@@ -1,5 +1,5 @@
 from .export import save_to_file
-from .storage import add_task, get_all_tasks, mark_task_completed, remove_task
+from .storage import add_task, get_all_tasks, mark_task_completed, remove_task, check_if_task_in_DB, get_all_tasks_fo_exporting
 import sys
 
 
@@ -19,10 +19,18 @@ def handle_action():
         case "2":
             print(get_all_tasks())
             index = int(input("Choose task index to remove: "))
+            while not check_if_task_in_DB(index):
+                print("You entered unexistent task index.")
+                print(get_all_tasks())
+                index = int(input("Choose task index to mark as done: "))
             remove_task(index)
         case "3":
             print(get_all_tasks())
             index = int(input("Choose task index to mark as done: "))
+            while not check_if_task_in_DB(index):
+                print("You entered unexistent task index.")
+                print(get_all_tasks())
+                index = int(input("Choose task index to mark as done: "))
             mark_task_completed(index, True)
         case "4":
             print(get_all_tasks())
@@ -35,7 +43,7 @@ def handle_interrupt():
     if user_input == "y":
         user_input = input("\nDo you want to export tasks (y/n)?")
         if user_input == "y":
-            save_to_file(get_all_tasks(), "export")
+            save_to_file(get_all_tasks_fo_exporting(), "export")
             sys.exit(0)
         if user_input == "n":
             sys.exit(0)

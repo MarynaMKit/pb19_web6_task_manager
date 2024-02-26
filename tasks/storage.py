@@ -21,5 +21,14 @@ def get_all_tasks() -> List[Tuple[int, str, bool]]:
         if task['completed']:
             res.append(f"[V] {i+1} - {task['title'] }")
         else:
-            res.append(f"[ ] {i+1} - {task['title'] }")
+            res.append(f"[_] {i+1} - {task['title'] }")
     return res
+
+
+def check_if_task_in_DB(index: int) -> bool:
+    if index <= len(_DB):
+        return True
+
+
+def get_all_tasks_fo_exporting() -> List[Tuple[int, str, bool]]:
+    return [(i+1, task["title"], task["completed"]) for i, task in enumerate(_DB)]
