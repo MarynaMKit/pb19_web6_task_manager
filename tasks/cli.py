@@ -1,5 +1,6 @@
 from .export import save_to_file
-from .storage import add_task, get_all_tasks, mark_task_completed, remove_task, check_if_task_in_DB
+from .storage import add_task, get_all_tasks, mark_task_completed, remove_task, check_if_task_in_DB, get_all_tasks_fo_exporting
+import sys
 
 
 def handle_action():
@@ -34,11 +35,17 @@ def handle_action():
         case "4":
             print(get_all_tasks())
         case _:
-            print("Try again")
+            print("Try again!!!!")
 
 
 def handle_interrupt():
-    user_input = input("\nDo you want to export tasks (y/n)?")
+    user_input = input("\nDo you want to exit (y/n)?")
     if user_input == "y":
-        save_to_file(get_all_tasks(), "export")
-        return True
+        user_input = input("\nDo you want to export tasks (y/n)?")
+        if user_input == "y":
+            save_to_file(get_all_tasks_fo_exporting(), "export")
+            sys.exit(0)
+        if user_input == "n":
+            sys.exit(0)
+        return False
+    return True
